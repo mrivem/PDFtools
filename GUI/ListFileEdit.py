@@ -8,12 +8,11 @@ from PyQt5.QtWidgets import QMessageBox, QListWidget
 
 class ListFileEdit(QListWidget):
     debug = False
-    mainWindow = None
+    parent = None
 
-    def __init__(self, mainWindow, parent):
+    def __init__(self, parent):
         super(ListFileEdit, self).__init__(parent)
-        self.mainWindow = mainWindow
-        self.setDragEnabled(True)
+        self.parent = parent
 
     def dragEnterEvent(self, event):
         data = event.mimeData()
@@ -48,7 +47,7 @@ class ListFileEdit(QListWidget):
             return
 
         # Extension list
-        allowed_extensions = self.mainWindow.allowed_file_extensions
+        allowed_extensions = self.parent.allowed_file_extensions
         # allowed_extensions = [".jpg", ".png", ".tif"]
         blocked_files = ""
         # Loop through every url
@@ -60,8 +59,8 @@ class ListFileEdit(QListWidget):
             if os.path.isdir(path):
                 dir_name = os.path.basename(path)
 
-                if self.mainWindow.txtFileName.text() == "":
-                    self.mainWindow.txtFileName.setText(dir_name)
+                if self.parent.txtFileName.text() == "":
+                    self.parent.txtFileName.setText(dir_name)
 
                 for file in os.listdir(path):
                     file_path = f"{path}/{file}"
