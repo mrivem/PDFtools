@@ -5,7 +5,7 @@
 # PyQt5 Gui components
 from PyQt5 import QtCore, QtGui, QtWidgets
 # My custom Gui components
-from ListFileEdit import ListFileEdit
+from GUI.ListFileEdit import ListFileEdit
 # External modules
 from PIL import Image
 from PyPDF2 import PdfFileMerger
@@ -20,12 +20,11 @@ h = hpy()
 
 
 class Ui_MainWindow(object):
-    
     default_save_path = f"{os.sep.join((os.path.expanduser('~'), 'Desktop'))}"
-    allowed_file_extensions = ["png", "jpg", "jpeg", "tif", "tiff"]
+    allowed_file_extensions = ["png", "jpg", "jpeg", "tif", "tiff", "bmp", "gif"]
 
     debug = True
-    
+
     # noinspection PyAttributeOutsideInit
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -235,7 +234,7 @@ class Ui_MainWindow(object):
         self.lblFileName.setText(_translate("MainWindow", "File name:"))
         self.lblPDF.setText(_translate("MainWindow", ".PDF"))
         self.btnPDF.setText(_translate("MainWindow", "Make PDF"))
-        self.label.setText(_translate("MainWindow", "@Mrivem, 2019"))
+        self.label.setText(_translate("MainWindow", "@Mrivem, 2020"))
 
     def click_pdf(self):
         # todo: comment code
@@ -272,7 +271,7 @@ class Ui_MainWindow(object):
                 # this iteration's part path, also added to the part path list
                 part_path = f"_TEMP/{file_name}_{i}.pdf"
                 part_paths.append(part_path)
-                # saves the whole part as a pdf
+                # saves the part as a pdf
                 pdf_imgs[0].save(part_path, save_all=True, append_images=pdf_imgs[1:])
                 # flag the space as empty and call the garbage collector to free the memory used by the part
                 # note: Somehow just one part can use more than 1GB of ram
@@ -298,13 +297,13 @@ class Ui_MainWindow(object):
             pdf = self.convert_batch(length=self.listFiles.count())
 
             if isinstance(pdf, list):
+                # turn image array into the final PDF
                 pdf[0].save(f"{self.default_save_path}/{file_name}.pdf", save_all=True, append_images=pdf[1:])
             else:
+                # turn image into the final pdf
                 pdf.save(f"{self.default_save_path}/{file_name}.pdf", save_all=True)
-# turn image array into the final PDF
 
     # todo, document this
-    # TODO remove list files as a parameter and use the class' one instead...
     def convert_batch(self, start_i=0, length=25):
         # converted image array, will return this
         image_list = []

@@ -1,11 +1,9 @@
 # !/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-from PyQt5.QtWidgets import QMessageBox, QLineEdit, QListWidget
-from PyQt5.QtGui import QIcon
-
-import sys
 import os
+
+from PyQt5.QtWidgets import QMessageBox, QListWidget
 
 
 class ListFileEdit(QListWidget):
@@ -68,7 +66,7 @@ class ListFileEdit(QListWidget):
                 for file in os.listdir(path):
                     file_path = f"{path}/{file}"
 
-                    # Get the file extension fixme
+                    # Get the file extension
                     file_ext = file_path.split('.')[-1].lower()
 
                     # Add item to the list if the extension is allowed
