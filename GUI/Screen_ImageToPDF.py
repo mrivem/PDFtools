@@ -3,12 +3,13 @@
 
 """
 # PyQt5 Gui components
+import PIL
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QThread, pyqtSignal
 from PyQt5.QtWidgets import *
 from PyQt5.uic import loadUi
 # External modules
-from PIL import Image
+from PIL import Image, ImageOps
 from PyPDF2 import PdfFileMerger
 # Python modules
 from datetime import datetime
@@ -29,7 +30,7 @@ class ThreadPDF(QThread):
 
     BATCH_SIZE = 15  # note: 25 is an arbitrary threshold that works on my machine, need further testing
 
-    def __init__(self, save_path, file_name, listFiles_paths):
+    def __init__(self, save_path, file_name, listFiles_paths, option_orientation, option_page_size, option_margin_size):
         """ Thread object constructor
             params:
             save_path       Directory where the resulting PDF file will be saved
@@ -41,6 +42,9 @@ class ThreadPDF(QThread):
         self.save_path = save_path
         self.file_name = file_name
         self.paths = listFiles_paths
+        self.option_orientation = option_orientation
+        self.option_page_size = option_page_size
+        self.option_margin_size = option_margin_size
         self.progress = 0
 
     def __del__(self):
@@ -143,11 +147,11 @@ class ThreadPDF(QThread):
 
             # convert from path string to image
             img = Image.open(self.paths[i])
-            img.rotate(90)
-            img_converted = img.convert('RGB')
+
+            img = self.modify_image(img)
 
             # append the image to the array
-            image_list.append(img_converted)
+            image_list.append(img)
 
         # more than one image, return the array
         if len(image_list) > 1:
@@ -156,12 +160,62 @@ class ThreadPDF(QThread):
         else:
             return image_list[0]
 
+    # Helper function that applies all image modifiers from UI
+    def modify_image(self, im):
+        # Margin sizes in px
+        # note: arbitrary values, google better ones
+        margin_SMALL = 150
+        margin_LARGE = 300
+
+        # Sizes at print dpi (300)
+        size_A4 = (2480, 3508)
+        size_USLETTER = (2550, 3300)
+
+        # Rotate image to better fit portrait or landscape orientation
+        if self.option_orientation == "PORTRAIT":
+            if im.width > im.height:
+                im = im.rotate(90, PIL.Image.NEAREST, expand=1)
+        else:
+            if im.width < im.height:
+                im = im.rotate(90, PIL.Image.NEAREST, expand=1)
+
+        # Add margins
+        if self.option_margin_size != 'NOMARGIN':
+            margin = 0
+            if self.option_margin_size == 'SMALL':
+                margin = margin_SMALL
+            elif self.option_margin_size == 'LARGE':
+                margin = margin_LARGE
+            im = ImageOps.expand(im, border=margin, fill='white')
+
+        # Resize to fit page
+        if self.option_page_size != "FIT":
+            desired_width, desired_height = (im.width, im.height)
+
+            if self.option_page_size == "A4":
+                desired_width, desired_height = size_A4 if self.option_orientation == "PORTRAIT" else (size_A4[1], size_A4[0])
+                pass
+            elif self.option_page_size == 'USLETTER':
+                desired_width, desired_height = size_USLETTER if self.option_orientation == "PORTRAIT" else (size_USLETTER[1], size_USLETTER[0])
+                pass
+
+            scale_factor = min(desired_width / im.width, desired_height / im.height)
+            new_size = (int(im.width * scale_factor), int(im.height * scale_factor))
+            im = im.resize(new_size, Image.ANTIALIAS)
+
+        return im
+
 
 # Class for the Image to PDF converter tool
 class Screen_ImageToPDF(QWidget):
     # Class global variables
     default_save_path = f"{os.sep.join((os.path.expanduser('~'), 'Desktop'))}"
     allowed_file_extensions = ["png", "jpg", "jpeg", "tif", "tiff", "bmp", "gif"]
+
+    OPTIONS_ORIENTATION = ["PORTRAIT", "LANDSCAPE"]
+    OPTIONS_PAGE_SIZE = ["FIT", "A4", "USLETTER"]
+    OPTIONS_MARGIN_SIZE = ["NOMARGIN", "SMALL", "LARGE"]
+
     parent = None
     # Explicit all variable types for items inherited from the .ui file
     listFiles: QListWidget
@@ -243,12 +297,20 @@ class Screen_ImageToPDF(QWidget):
         listFiles_paths = []
         for i in range(0, self.listFiles.count()):
             listFiles_paths.append(self.listFiles.item(i).text())
+        # Retrieve option values
+
+        # note hete
+
+        option_orientation = self.OPTIONS_ORIENTATION[self.comboOrientation.currentIndex()]
+        option_page_size = self.OPTIONS_PAGE_SIZE[self.comboSize.currentIndex()]
+        option_margin_size = self.OPTIONS_MARGIN_SIZE[self.comboMargin.currentIndex()]
 
         # Lock UI elements
         self.toggle_ui(False)
 
         # Define and start the conversion thread
-        self.pdf_thread = ThreadPDF(save_path=self.default_save_path, file_name=file_name, listFiles_paths=listFiles_paths)
+        self.pdf_thread = ThreadPDF(save_path=self.default_save_path, file_name=file_name, listFiles_paths=listFiles_paths,
+                                    option_orientation=option_orientation, option_page_size=option_page_size, option_margin_size=option_margin_size)
         self.pdf_thread.start()
         # Link thread's signals
         self.pdf_thread.signal_progress.connect(self.progressBar.setValue)
