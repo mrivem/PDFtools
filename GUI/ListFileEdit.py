@@ -5,9 +5,10 @@ import os
 
 from PyQt5.QtWidgets import QMessageBox, QListWidget
 
+from Screen_ImageToPDF import Screen_ImageToPDF
+
 
 class ListFileEdit(QListWidget):
-    debug = False
     parent = None
 
     def __init__(self, parent):
@@ -48,10 +49,10 @@ class ListFileEdit(QListWidget):
 
         # Extension list
         allowed_extensions = self.parent.allowed_file_extensions
-        # allowed_extensions = [".jpg", ".png", ".tif"]
         blocked_files = ""
         # Loop through every url
         for url in urls:
+
             # Get the path from url (Removing leading \)
             path = url.path()[1:]
 
@@ -59,8 +60,9 @@ class ListFileEdit(QListWidget):
             if os.path.isdir(path):
                 dir_name = os.path.basename(path)
 
-                if self.parent.txtFileName.text() == "":
-                    self.parent.txtFileName.setText(dir_name)
+                if isinstance(self.parent, Screen_ImageToPDF):
+                    if self.parent.txtFileName.text() == "":
+                        self.parent.txtFileName.setText(dir_name)
 
                 for file in os.listdir(path):
                     file_path = f"{path}/{file}"

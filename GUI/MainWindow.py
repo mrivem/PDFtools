@@ -1,8 +1,6 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import pyqtSignal
-from PyQt5.QtWidgets import QMainWindow, QStackedWidget, QWidget, QHBoxLayout, QPushButton, QApplication, QAction, QMessageBox
+from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtWidgets import QMainWindow, QStackedWidget, QAction, QMessageBox
 
-from Screen_ImageToPDF import Screen_ImageToPDF
 from Screen_ToolSelection import Screen_ToolSelection
 
 
@@ -10,9 +8,8 @@ class Ui_MainWindow(QMainWindow):
     WIN_WIDTH = 800
     WIN_HEIGHT = 600
 
-    CUR_VER = "v0.2.2"
+    CUR_VER = "v0.2.3"
     screen_toolselection: Screen_ToolSelection
-
 
     def setupUi(self, MainWindow):
         # main window attributes

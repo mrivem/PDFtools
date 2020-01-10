@@ -1,24 +1,24 @@
 """
-    TODO: intro to class and tool usage
+TODO intro and info here
 
+Todo:
+    Implement img.close() and see the effects on memory :c
 """
+# Memory management and debugging modules
+import gc
+import os
+# Python modules
+from datetime import datetime
+
 # PyQt5 Gui components
 import PIL
+# External modules
+from PIL import Image, ImageOps
+from PyPDF2 import PdfFileMerger
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QThread, pyqtSignal
 from PyQt5.QtWidgets import *
 from PyQt5.uic import loadUi
-# External modules
-from PIL import Image, ImageOps
-from PyPDF2 import PdfFileMerger
-# Python modules
-from datetime import datetime
-import os
-# Memory management and debugging modules
-import gc
-from guppy import hpy
-
-h = hpy()
 
 
 # This thread handles all the conversion heavy weight
@@ -33,9 +33,12 @@ class ThreadPDF(QThread):
     def __init__(self, save_path, file_name, listFiles_paths, option_orientation, option_page_size, option_margin_size):
         """ Thread object constructor
             params:
-            save_path       Directory where the resulting PDF file will be saved
-            file_name       Final name of the PDF file
-            listFiles_paths List containing the paths of all the Image files for the PDF
+            save_path           Directory where the resulting PDF file will be saved
+            file_name           Final name of the PDF file
+            listFiles_paths     List containing the paths of all the Image files for the PDF
+            option_orientation  PORTRAIT LANDSCAPE
+            option_page_size    FIT A4 USLETTER
+            option_margin_size  NOMARGIN SMALL LARGE
         """
         QThread.__init__(self)
         # Set thread variables
@@ -234,6 +237,7 @@ class Screen_ImageToPDF(QWidget):
     progressBar: QProgressBar
 
     def __init__(self, parent=None):
+        # noinspection PyArgumentList
         super(Screen_ImageToPDF, self).__init__()
 
         # Set class variables
@@ -298,9 +302,6 @@ class Screen_ImageToPDF(QWidget):
         for i in range(0, self.listFiles.count()):
             listFiles_paths.append(self.listFiles.item(i).text())
         # Retrieve option values
-
-        # note hete
-
         option_orientation = self.OPTIONS_ORIENTATION[self.comboOrientation.currentIndex()]
         option_page_size = self.OPTIONS_PAGE_SIZE[self.comboSize.currentIndex()]
         option_margin_size = self.OPTIONS_MARGIN_SIZE[self.comboMargin.currentIndex()]
