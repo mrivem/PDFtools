@@ -6,6 +6,8 @@ Todo:
     Specify output folder in gui
     Separate large files in batches (maybe every 50 pages? clear temp folder in between)
     Add and test more file formats for the output
+    Delete duplicate button in code and ui, why would it be necessary?
+    Add poppler dependency to github
 """
 import os
 
@@ -37,7 +39,6 @@ class Thread_Images(QThread):
         self.option_output_format = option_output_format
         self.progress = 0
         self.message = ""
-        pass
 
     def __del__(self):
         self.wait()

@@ -31,9 +31,9 @@
                         </widget>
                     </item>
                     <item>
-                        <widget class="QPushButton" name="btn_none_2">
+                        <widget class="QPushButton" name="btn_pdfmerge">
                             <property name="text">
-                                <string>None 2</string>
+                                <string>Merge PDFs</string>
                             </property>
                         </widget>
                     </item>

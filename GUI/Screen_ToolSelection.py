@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.uic import loadUi
 
 from Screen_ImageToPDF import Screen_ImageToPDF
+from Screen_MergePDF import Screen_MergePDF
 from Screen_PDFToImage import Screen_PDFToImage
 
 
@@ -10,6 +11,7 @@ class Screen_ToolSelection(QWidget):
 
     btn_imagetopdf: QPushButton
     btn_pdftoimage: QPushButton
+    btn_pdfmerge: QPushButton
     central_widget: QStackedWidget
 
     DEBUG_INITIAL_TOOL = ""
@@ -26,6 +28,7 @@ class Screen_ToolSelection(QWidget):
 
         self.btn_imagetopdf.clicked.connect(self.click_imagetopdf)
         self.btn_pdftoimage.clicked.connect(self.click_pdftoimage)
+        self.btn_pdfmerge.clicked.connect(self.click_pdfmerge)
 
     def post_load(self):
         if self.DEBUG_INITIAL_TOOL:
@@ -33,6 +36,8 @@ class Screen_ToolSelection(QWidget):
                 self.click_imagetopdf()
             if self.DEBUG_INITIAL_TOOL == "pdftoimage":
                 self.click_pdftoimage()
+            if self.DEBUG_INITIAL_TOOL == "mergepdf":
+                self.click_pdfmerge()
 
     def click_imagetopdf(self):
         self.screen_imgtopdf = Screen_ImageToPDF(self)
@@ -44,5 +49,7 @@ class Screen_ToolSelection(QWidget):
         self.central_widget.addWidget(self.screen_pdftoimage)
         self.central_widget.setCurrentWidget(self.screen_pdftoimage)
 
-    def click_test(self):
-        pass
+    def click_pdfmerge(self):
+        self.screen_mergepdf = Screen_MergePDF(self)
+        self.central_widget.addWidget(self.screen_mergepdf)
+        self.central_widget.setCurrentWidget(self.screen_mergepdf)

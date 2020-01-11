@@ -4,17 +4,16 @@ TODO intro and info here
 Todo:
     Implement img.close() and see the effects on memory :c
 """
-# Memory management and debugging modules
+# Python modules
 import gc
 import os
-# Python modules
 from datetime import datetime
 
-# PyQt5 Gui components
-import PIL
 # External modules
+import PIL
 from PIL import Image, ImageOps
 from PyPDF2 import PdfFileMerger
+# PyQt5 Gui components
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QThread, pyqtSignal
 from PyQt5.QtWidgets import *

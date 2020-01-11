@@ -6,6 +6,7 @@ import os
 from PyQt5.QtWidgets import QMessageBox, QListWidget
 
 from Screen_ImageToPDF import Screen_ImageToPDF
+from Screen_MergePDF import Screen_MergePDF
 
 
 class ListFileEdit(QListWidget):
@@ -61,6 +62,9 @@ class ListFileEdit(QListWidget):
                 dir_name = os.path.basename(path)
 
                 if isinstance(self.parent, Screen_ImageToPDF):
+                    if self.parent.txtFileName.text() == "":
+                        self.parent.txtFileName.setText(dir_name)
+                elif isinstance(self.parent, Screen_MergePDF):
                     if self.parent.txtFileName.text() == "":
                         self.parent.txtFileName.setText(dir_name)
 
