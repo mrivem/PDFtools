@@ -15,25 +15,46 @@
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
-                <layout class="QHBoxLayout" name="horizontalLayout">
-                    <item>
+                <layout class="QGridLayout" name="gridLayout">
+                    <item row="0" column="2">
+                        <widget class="QPushButton" name="btn_pdfmerge">
+                            <property name="text">
+                                <string>Merge PDFs</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="0" column="0">
                         <widget class="QPushButton" name="btn_imagetopdf">
                             <property name="text">
                                 <string>Image to PDF</string>
                             </property>
                         </widget>
                     </item>
-                    <item>
+                    <item row="0" column="1">
                         <widget class="QPushButton" name="btn_pdftoimage">
                             <property name="text">
                                 <string>PDF to Image</string>
                             </property>
                         </widget>
                     </item>
-                    <item>
-                        <widget class="QPushButton" name="btn_pdfmerge">
+                    <item row="1" column="0">
+                        <widget class="QPushButton" name="btn_pdfsplit">
                             <property name="text">
-                                <string>Merge PDFs</string>
+                                <string>Split PDF</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="1" column="1">
+                        <widget class="QPushButton" name="btn_none1">
+                            <property name="text">
+                                <string>None 1</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="1" column="2">
+                        <widget class="QPushButton" name="btn_none2">
+                            <property name="text">
+                                <string>None 2</string>
                             </property>
                         </widget>
                     </item>

@@ -53,8 +53,6 @@ class Thread_Merge(QThread):
 
         gc.collect()
 
-        pass
-
 
 class Screen_MergePDF(QWidget):
     # Class global variables
@@ -169,3 +167,4 @@ class Screen_MergePDF(QWidget):
 
     def click_back(self):
         self.central_widget.removeWidget(self)
+        del self

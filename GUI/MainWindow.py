@@ -8,7 +8,7 @@ class Ui_MainWindow(QMainWindow):
     WIN_WIDTH = 800
     WIN_HEIGHT = 600
 
-    CUR_VER = "v0.2.4"
+    CUR_VER = "v0.2.5"
     screen_toolselection: Screen_ToolSelection
 
     def setupUi(self, MainWindow):

@@ -205,3 +205,4 @@ class Screen_PDFToImage(QWidget):
 
     def click_back(self):
         self.central_widget.removeWidget(self)
+        del self
