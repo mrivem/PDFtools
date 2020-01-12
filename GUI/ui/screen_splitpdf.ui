@@ -79,6 +79,19 @@
                                         </widget>
                                     </item>
                                     <item>
+                                        <spacer name="horizontalSpacer">
+                                            <property name="orientation">
+                                                <enum>Qt::Horizontal</enum>
+                                            </property>
+                                            <property name="sizeHint" stdset="0">
+                                                <size>
+                                                    <width>40</width>
+                                                    <height>20</height>
+                                                </size>
+                                            </property>
+                                        </spacer>
+                                    </item>
+                                    <item>
                                         <spacer name="verticalSpacer">
                                             <property name="orientation">
                                                 <enum>Qt::Vertical</enum>
@@ -92,17 +105,40 @@
                                         </spacer>
                                     </item>
                                     <item>
-                                        <spacer name="horizontalSpacer">
-                                            <property name="orientation">
-                                                <enum>Qt::Horizontal</enum>
+                                        <widget class="QTextEdit" name="textEdit">
+                                            <property name="enabled">
+                                                <bool>false</bool>
                                             </property>
-                                            <property name="sizeHint" stdset="0">
-                                                <size>
-                                                    <width>40</width>
-                                                    <height>20</height>
-                                                </size>
+                                            <property name="html">
+                                                <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+                                                    &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+                                                    p, li { white-space: pre-wrap; }
+                                                    &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+                                                    &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0;
+                                                    text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2';&quot;&gt;Range instructions&lt;/span&gt;&lt;/p&gt;
+                                                    &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                                                    -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2';&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+                                                    &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span
+                                                    style=&quot; font-family:'MS Shell Dlg 2';&quot;&gt;#t: Represents the number of pages of the PDF file (Indicated on the right side once a file is
+                                                    loaded).&lt;/span&gt;&lt;/p&gt;
+                                                    &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span
+                                                    style=&quot; font-family:'MS Shell Dlg 2';&quot;&gt;#: Represents any number from 1 to #t.&lt;/span&gt;&lt;/p&gt;
+                                                    &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span
+                                                    style=&quot; font-family:'MS Shell Dlg 2';&quot;&gt;Note: You can separate multiple splits with a single comma ',' then add them together with the
+                                                    Merge tool.&lt;/span&gt;&lt;/p&gt;
+                                                    &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0;
+                                                    text-indent:0px; font-family:'MS Shell Dlg 2';&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+                                                    &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span
+                                                    style=&quot; font-family:'MS Shell Dlg 2';&quot;&gt;# Only the selected page.&lt;/span&gt;&lt;/p&gt;
+                                                    &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span
+                                                    style=&quot; font-family:'MS Shell Dlg 2';&quot;&gt;#1-#2 Split from page #1 to #2.&lt;/span&gt;&lt;/p&gt;
+                                                    &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span
+                                                    style=&quot; font-family:'MS Shell Dlg 2';&quot;&gt;#- Split from # to #t.&lt;/span&gt;&lt;/p&gt;
+                                                    &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span
+                                                    style=&quot; font-family:'MS Shell Dlg 2';&quot;&gt;-# Split from page 1 to #.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                                                </string>
                                             </property>
-                                        </spacer>
+                                        </widget>
                                     </item>
                                 </layout>
                             </item>
@@ -118,7 +154,7 @@
                                     <item>
                                         <widget class="QLabel" name="label_4">
                                             <property name="text">
-                                                <string>Output preview</string>
+                                                <string>Preview</string>
                                             </property>
                                         </widget>
                                     </item>

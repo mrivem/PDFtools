@@ -4,6 +4,7 @@ from PyQt5.uic import loadUi
 from Screen_ImageToPDF import Screen_ImageToPDF
 from Screen_MergePDF import Screen_MergePDF
 from Screen_PDFToImage import Screen_PDFToImage
+from Screen_RotatePDF import Screen_RotatePDF
 from Screen_SplitPDF import Screen_SplitPDF
 
 
@@ -14,6 +15,7 @@ class Screen_ToolSelection(QWidget):
     btn_pdftoimage: QPushButton
     btn_pdfmerge: QPushButton
     btn_pdfsplit: QPushButton
+    btn_pdfrotate: QPushButton
     central_widget: QStackedWidget
 
     DEBUG_INITIAL_TOOL = ""
@@ -32,6 +34,7 @@ class Screen_ToolSelection(QWidget):
         self.btn_pdftoimage.clicked.connect(self.click_pdftoimage)
         self.btn_pdfmerge.clicked.connect(self.click_pdfmerge)
         self.btn_pdfsplit.clicked.connect(self.click_pdfsplit)
+        self.btn_pdfrotate.clicked.connect(self.click_pdfrotate)
 
     def post_load(self):
         if self.DEBUG_INITIAL_TOOL:
@@ -43,6 +46,8 @@ class Screen_ToolSelection(QWidget):
                 self.click_pdfmerge()
             if self.DEBUG_INITIAL_TOOL == "splitpdf":
                 self.click_pdfsplit()
+            if self.DEBUG_INITIAL_TOOL == "rotatepdf":
+                self.click_pdfrotate()
 
     def click_imagetopdf(self):
         self.screen_imgtopdf = Screen_ImageToPDF(self)
@@ -63,3 +68,8 @@ class Screen_ToolSelection(QWidget):
         self.screen_splitpdf = Screen_SplitPDF(self)
         self.central_widget.addWidget(self.screen_splitpdf)
         self.central_widget.setCurrentWidget(self.screen_splitpdf)
+
+    def click_pdfrotate(self):
+        self.screen_rotatepdf = Screen_RotatePDF(self)
+        self.central_widget.addWidget(self.screen_rotatepdf)
+        self.central_widget.setCurrentWidget(self.screen_rotatepdf)

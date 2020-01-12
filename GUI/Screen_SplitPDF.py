@@ -3,13 +3,12 @@ TODO intro and info here
 
 Todo:
     Document code
-    Add a range instructions label to the GUI
 """
 import os
 import re
 from datetime import datetime
 
-from PyPDF2 import PdfFileReader, PdfFileWriter
+import PyPDF2
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QThread, pyqtSignal
 from PyQt5.QtWidgets import *
@@ -47,8 +46,8 @@ class Thread_Split(QThread):
 
             if first == last:
                 out_path = os.path.join(self.save_path, f"{self.output_prefix}_{first}.PDF")
-                reader = PdfFileReader(self.input_path)
-                writer = PdfFileWriter()
+                reader = PyPDF2.PdfFileReader(self.input_path)
+                writer = PyPDF2.PdfFileWriter()
                 writer.addPage(reader.getPage(first - 1))
 
                 with open(out_path, "wb") as out_file:
@@ -56,8 +55,8 @@ class Thread_Split(QThread):
                 del reader, writer
             else:
                 out_path = os.path.join(self.save_path, f"{self.output_prefix}_{first}-{last}.PDF")
-                reader = PdfFileReader(self.input_path)
-                writer = PdfFileWriter()
+                reader = PyPDF2.PdfFileReader(self.input_path)
+                writer = PyPDF2.PdfFileWriter()
 
                 for i in range(first - 1, last):
                     this_progress = progress + int((i / (last - first)) / len(self.ranges))
@@ -250,7 +249,7 @@ class Screen_SplitPDF(QWidget):
             return
 
         # Get the number of pages
-        pdf = PdfFileReader(file_name)
+        pdf = PyPDF2.PdfFileReader(file_name)
         self.page_count = pdf.getNumPages()
         del pdf
 
